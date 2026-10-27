@@ -1,16 +1,58 @@
-# React + Vite
+# 🔐 Random Password Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A simple Random Password Generator built with **React** and **Tailwind CSS**. Generate random passwords with customizable lengths, optional numbers, and special characters.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🔑 Generate random passwords.
+- 📏 Adjust password length from 6 to 100 characters.
+- 🔢 Include numbers.
+- 🔣 Include special characters.
+- 📋 Copy passwords to the clipboard with one click.
+- 🔔 Toast notifications for successful copying.
 
-## React Compiler
+## 🛠️ Technologies Used
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript
+- Tailwind CSS
+- Vite
+- React Hot Toast
 
-## Expanding the Oxlint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Clone the repository:
+
+```bash
+git clone <your-repository-url>
+```
+
+Navigate to the project directory:
+
+```bash
+cd random-password-generator
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open the local URL displayed in your terminal.
+
+## 📸 Preview
+
+Run the project locally to explore its features.
+
+## 👨‍💻 Author
+
+**Sauvik Sarkar**
+
+GitHub: [sauvik-123](https://github.com/sauvik-123)
