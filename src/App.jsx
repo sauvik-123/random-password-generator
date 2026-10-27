@@ -72,7 +72,7 @@ export function App() {
           <input
             id='length'
             type='range'
-            min={6}
+            min={8}
             max={100}
             value={length}
             className='h-2 rounded-lg cursor-pointer accent-gray-400'
