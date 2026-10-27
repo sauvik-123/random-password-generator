@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 export function App() {
+  const passwordRef = useRef(null);
   let [length, setLength] = useState(8);
   let [numberAllowed, setNumberAllowed] = useState(false);
   let [characterAllowed, setCharactersAllowed] = useState(false);
   let [password, setPassword] = useState('');
 
+  // function to generate password
   let passwordGenerator = useCallback(
     function () {
       let pass = '';
@@ -14,13 +16,29 @@ export function App() {
       if (numberAllowed) str += '1234567890';
       if (characterAllowed) str += '!@#$%^&*()_+|";:?/>.<,`~]}[{=-';
 
-      for (let i = 1; i <= array.length; i++) {
+      for (let i = 1; i <= length; i++) {
         let char = Math.floor(Math.random() * str.length + 1);
-        pass = str.charAt(char);
+        pass += str.charAt(char);
       }
       setPassword(pass);
     },
-    [length, numberAllowed, characterAllowed, setPassword]
+    [length, numberAllowed, characterAllowed]
+  );
+
+  useEffect(
+    function () {
+      passwordGenerator();
+    },
+    [length, characterAllowed, numberAllowed, passwordGenerator]
+  );
+
+  // function for copying the password to clipboard
+  const copyPasswordToClipboard = useCallback(
+    function () {
+      window.navigator.clipboard.writeText(password);
+      toast.success('Password Copied to Clipboard');
+    },
+    [password]
   );
 
   return (
@@ -34,18 +52,20 @@ export function App() {
         <input
           readOnly
           type='text'
+          ref={passwordRef}
           value={password}
           placeholder='Password Generated Here'
           className='flex min-w-80 text-white p-5 text-lg h-full w-full focus:outline-none tracking-wide'
         />
         <button
-          onClick={() => toast.success('Password Copied to Clipboard')}
+          onClick={copyPasswordToClipboard}
           className='w-30 h-full hover:bg-neutral-200 hover:text-black font-semibold transition-all duration-200 cursor-pointer tracking-wide'>
           Copy
         </button>
       </div>
 
       <div className='flex items-center justify-center mt-2 h-20 shadow-xs gap-x-5'>
+        {/* Slider */}
         <label
           htmlFor='length'
           className='flex items-center justify-center tracking-wide gap-3'>
@@ -55,7 +75,7 @@ export function App() {
             min={6}
             max={100}
             value={length}
-            class='w-full h-2 rounded-lg cursor-pointer accent-gray-400'
+            className='h-2 rounded-lg cursor-pointer accent-gray-400'
             onChange={e => {
               setLength(e.target.value);
             }}
@@ -63,26 +83,30 @@ export function App() {
           Length : {length}
         </label>
 
+        {/* Number Allowance Checkbox */}
         <label
           htmlFor='numberAllowed'
           className='flex items-center justify-center gap-1.5 tracking-wide'>
           <input
             id='numberAllowed'
             type='checkbox'
-            value={numberAllowed}
-            class='size-5 cursor-pointer accent-gray-300'
+            defaultChecked={numberAllowed}
+            className='size-5 cursor-pointer accent-gray-300'
+            onChange={() => setNumberAllowed(prev => !prev)}
           />
           Numbers
         </label>
 
+        {/* Character Allowance Checkbox */}
         <label
           htmlFor='characterAllowed'
           className='flex items-center justify-center gap-1.5 tracking-wide'>
           <input
             id='characterAllowed'
             type='checkbox'
-            value={characterAllowed}
-            class='size-5 cursor-pointer accent-gray-300'
+            defaultChecked={characterAllowed}
+            className='size-5 cursor-pointer accent-gray-300'
+            onChange={() => setCharactersAllowed(prev => !prev)}
           />
           CharactersAllowed
         </label>
